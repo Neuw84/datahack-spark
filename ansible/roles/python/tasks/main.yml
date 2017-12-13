@@ -1,12 +1,12 @@
 ---
     - name: Get aptitude for upgrade
-      apt: pkg=aptitude state=present
-
-    #- name: Safe system upgrade via aptitude
-    #  apt: upgrade=safe
+      apt: pkg=aptitude state=present 
 
     - name: grab build dependencies for numpy and scipy
-      command: apt-get -y build-dep python-scipy liblapack-dev libopenblas-dev gfortran libpython3-dev build-essential pkg-config python-pip
+      command: apt-get -y  python-pip build-dep python-scipy liblapack-dev libopenblas-dev gfortran libpython3-dev build-essential pkg-config 
+      
+    - name: Safe system upgrade via aptitude
+      apt: upgrade=safe
 
     - name: Install global python requirements
       pip: name={{item}} state=present
