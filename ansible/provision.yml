@@ -1,0 +1,51 @@
+---
+
+- name: Java
+  hosts: "all"
+  become: yes
+  roles:
+  - { role: java, tags: ['java'] }
+
+  vars:
+    java_version: 8
+    java_subversion: 131
+    java_build_custom: 11
+    jdk_version_detail_custom: "{{ java_version }}u{{ java_subversion }}-b{{ java_build_custom }}"
+    jdk_tarball_hash: d54c1d3a095b4ff2b6607d096fa80163
+    jdk_tarball_url: "http://download.oracle.com/otn-pub/java/jdk/{{ jdk_version_detail_custom }}/{{ jdk_tarball_hash }}/{{ jdk_tarball_file }}"
+
+- name: Spark 
+  hosts: all
+  become: yes
+  user: vagrant
+  vars: 
+    - spark_version: 2.2.1
+
+  roles:
+   - { role: spark, tags: ['spark'] }
+
+- name: Python
+  hosts: all
+  become: yes
+  user: vagrant
+  roles:
+   - { role: python, tags: ['python'] }
+
+
+- name: Zeppelin
+  hosts: all
+  become: yes
+  user: vagrant
+  vars:
+    - zeppelin_notebook_dir: /vagrant/notebooks
+    - zeppelin_spark_home: /opt/spark/  
+    - zeppelin_java_opts: -Dcassandra.hosts=localhost -Dspark.cassandra.connection.host=localhost
+    - zeppelin_intp_mem: -Xmx2G -XX:MaxPermSize=1G
+    - zeppelin_mem: -Xmx3g -XX:MaxPermSize=1G
+    - zeppelin_spark_submit_options: --driver-memory 3G --executor-memory 2G.
+  roles:
+  - { role: zeppelin, tags: ['zeppelin'] }
+
+    
+
+  

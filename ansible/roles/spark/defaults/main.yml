@@ -1,0 +1,7 @@
+---
+spark_version: 2.2.1
+spark_download_url: http://apache.rediris.es/spark/spark-{{ spark_version }}/spark-{{ spark_version }}-bin-hadoop2.7.tgz
+zeppelin_service_username: zeppelin
+zeppelin_service_group: zeppelin
+spark_working_directory: /tmp/spark_working_directory
+zeppelin_java_home:

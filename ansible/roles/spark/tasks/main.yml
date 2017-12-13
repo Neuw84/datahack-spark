@@ -1,0 +1,53 @@
+---
+
+#we are binding the spark to the zeppelin user group
+- name: Create the zeppelin group
+  group:
+    name: "{{ zeppelin_service_group }}"
+    state: present
+    system: yes
+
+- name: Create the zeppelin user
+  user:
+    name: "{{ zeppelin_service_username }}"
+    groups: "{{ zeppelin_service_group }}"
+    append: yes
+    shell: /bin/bash
+
+- name: Create the spark_working_directory
+  file:
+    path: "{{ spark_working_directory }}"
+    state: directory  
+    mode: 0755
+    owner: "{{ zeppelin_service_username }}"
+    group: "{{ zeppelin_service_group }}"
+  
+- name: Check if the version of Zeppelin already exists
+  stat:
+    path: "/opt/spark-{{ spark_version }}-bin-hadoop2.7"
+  register: spark_install_path
+
+- name: Download Spark
+  get_url:
+    url: "{{ spark_download_url }}"
+    dest: "/tmp/spark-{{ spark_version }}.tgz"
+  when: spark_install_path.stat.exists == False
+
+- name: Extract Spark into the install directory
+  unarchive:
+    src: "/tmp/spark-{{ spark_version }}.tgz"
+    dest: "/opt/"
+    copy: no
+    owner: "{{ zeppelin_service_username }}"
+    group: "{{ zeppelin_service_group }}"
+  when: spark_install_path.stat.exists == False
+
+
+- name: Create a symlink for /opt/spark
+  file:
+    src: "/opt/spark-{{ spark_version }}-bin-hadoop2.7"
+    dest: /opt/spark    
+    owner: "{{ zeppelin_service_username }}"
+    group: "{{ zeppelin_service_group }}"
+    state: link
+  when: spark_install_path.stat.exists == False
