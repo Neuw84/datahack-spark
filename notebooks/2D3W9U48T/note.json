@@ -3,7 +3,7 @@
     {
       "text": "%md\n## Welcome to Zeppelin.\n##### This is a live tutorial, you can run the code yourself. (Shift-Enter to Run)",
       "user": "admin",
-      "dateUpdated": "Dec 13, 2017 11:50:18 AM",
+      "dateUpdated": "Dec 14, 2017 8:59:24 AM",
       "config": {
         "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
@@ -41,8 +41,8 @@
       "jobName": "paragraph_1513165805926_1996339655",
       "id": "20150213-231621_168813393",
       "dateCreated": "Dec 13, 2017 11:50:05 AM",
-      "dateStarted": "Dec 13, 2017 11:50:18 AM",
-      "dateFinished": "Dec 13, 2017 11:50:18 AM",
+      "dateStarted": "Dec 14, 2017 8:59:24 AM",
+      "dateFinished": "Dec 14, 2017 8:59:28 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -50,10 +50,10 @@
       "title": "Load data into table",
       "text": "import org.apache.commons.io.IOUtils\nimport java.net.URL\nimport java.nio.charset.Charset\n\n// Zeppelin creates and injects sc (SparkContext) and sqlContext (HiveContext or SqlContext)\n// So you don\u0027t need create them manually\n\n// load bank data\nval bankText \u003d sc.parallelize(\n    IOUtils.toString(\n        new URL(\"https://s3.amazonaws.com/apache-zeppelin/tutorial/bank/bank.csv\"),\n        Charset.forName(\"utf8\")).split(\"\\n\"))\n\ncase class Bank(age: Integer, job: String, marital: String, education: String, balance: Integer)\n\nval bank \u003d bankText.map(s \u003d\u003e s.split(\";\")).filter(s \u003d\u003e s(0) !\u003d \"\\\"age\\\"\").map(\n    s \u003d\u003e Bank(s(0).toInt, \n            s(1).replaceAll(\"\\\"\", \"\"),\n            s(2).replaceAll(\"\\\"\", \"\"),\n            s(3).replaceAll(\"\\\"\", \"\"),\n            s(5).replaceAll(\"\\\"\", \"\").toInt\n        )\n).toDF()\nbank.registerTempTable(\"bank\")",
       "user": "admin",
-      "dateUpdated": "Dec 13, 2017 11:50:18 AM",
+      "dateUpdated": "Dec 14, 2017 8:59:24 AM",
       "config": {
         "colWidth": 12.0,
-        "editorMode": "ace/mode/scala",
+        "editorMode": "ace/mode/text",
         "title": true,
         "results": [
           {
@@ -70,7 +70,8 @@
         ],
         "enabled": true,
         "editorSetting": {
-          "language": "scala"
+          "language": "text",
+          "editOnDblClick": false
         }
       },
       "settings": {
@@ -90,18 +91,18 @@
       "jobName": "paragraph_1513165805926_1996339655",
       "id": "20150210-015259_1403135953",
       "dateCreated": "Dec 13, 2017 11:50:05 AM",
-      "dateStarted": "Dec 13, 2017 11:50:18 AM",
-      "dateFinished": "Dec 13, 2017 11:50:44 AM",
+      "dateStarted": "Dec 14, 2017 8:59:24 AM",
+      "dateFinished": "Dec 14, 2017 9:00:02 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "text": "%sql \nselect age, count(1) value\nfrom bank \nwhere age \u003c 30 \ngroup by age \norder by age",
       "user": "admin",
-      "dateUpdated": "Dec 13, 2017 11:50:18 AM",
+      "dateUpdated": "Dec 14, 2017 8:59:24 AM",
       "config": {
         "colWidth": 4.0,
-        "editorMode": "ace/mode/sql",
+        "editorMode": "ace/mode/text",
         "results": [
           {
             "graph": {
@@ -140,7 +141,8 @@
         ],
         "enabled": true,
         "editorSetting": {
-          "language": "sql"
+          "language": "text",
+          "editOnDblClick": false
         }
       },
       "settings": {
@@ -160,18 +162,18 @@
       "jobName": "paragraph_1513165805926_1996339655",
       "id": "20150210-015302_1492795503",
       "dateCreated": "Dec 13, 2017 11:50:05 AM",
-      "dateStarted": "Dec 13, 2017 11:50:18 AM",
-      "dateFinished": "Dec 13, 2017 11:50:54 AM",
+      "dateStarted": "Dec 14, 2017 8:59:30 AM",
+      "dateFinished": "Dec 14, 2017 9:00:07 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "text": "%sql \nselect age, count(1) value \nfrom bank \nwhere age \u003c ${maxAge\u003d30} \ngroup by age \norder by age",
       "user": "admin",
-      "dateUpdated": "Dec 13, 2017 11:50:18 AM",
+      "dateUpdated": "Dec 14, 2017 8:59:28 AM",
       "config": {
         "colWidth": 4.0,
-        "editorMode": "ace/mode/sql",
+        "editorMode": "ace/mode/text",
         "results": [
           {
             "graph": {
@@ -210,7 +212,8 @@
         ],
         "enabled": true,
         "editorSetting": {
-          "language": "sql"
+          "language": "text",
+          "editOnDblClick": false
         }
       },
       "settings": {
@@ -238,18 +241,18 @@
       "jobName": "paragraph_1513165805927_1995954906",
       "id": "20150212-145404_867439529",
       "dateCreated": "Dec 13, 2017 11:50:05 AM",
-      "dateStarted": "Dec 13, 2017 11:50:45 AM",
-      "dateFinished": "Dec 13, 2017 11:50:56 AM",
+      "dateStarted": "Dec 14, 2017 9:00:03 AM",
+      "dateFinished": "Dec 14, 2017 9:00:10 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "text": "%sql \nselect age, count(1) value \nfrom bank \nwhere marital\u003d\"${marital\u003dsingle,single|divorced|married}\" \ngroup by age \norder by age",
       "user": "admin",
-      "dateUpdated": "Dec 13, 2017 11:50:19 AM",
+      "dateUpdated": "Dec 14, 2017 8:59:29 AM",
       "config": {
         "colWidth": 4.0,
-        "editorMode": "ace/mode/sql",
+        "editorMode": "ace/mode/text",
         "results": [
           {
             "graph": {
@@ -289,7 +292,8 @@
         "enabled": true,
         "runOnSelectionChange": true,
         "editorSetting": {
-          "language": "sql"
+          "language": "text",
+          "editOnDblClick": false
         }
       },
       "settings": {
@@ -328,15 +332,15 @@
       "jobName": "paragraph_1513165805927_1995954906",
       "id": "20150213-230422_1600658137",
       "dateCreated": "Dec 13, 2017 11:50:05 AM",
-      "dateStarted": "Dec 13, 2017 11:50:54 AM",
-      "dateFinished": "Dec 13, 2017 11:50:59 AM",
+      "dateStarted": "Dec 14, 2017 9:00:08 AM",
+      "dateFinished": "Dec 14, 2017 9:00:11 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "text": "%md\n## Congratulations, it\u0027s done.\n##### You can create your own notebook in \u0027Notebook\u0027 menu. Good luck!",
       "user": "admin",
-      "dateUpdated": "Dec 13, 2017 11:50:19 AM",
+      "dateUpdated": "Dec 14, 2017 8:59:29 AM",
       "config": {
         "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
@@ -374,15 +378,15 @@
       "jobName": "paragraph_1513165805927_1995954906",
       "id": "20150213-230428_1231780373",
       "dateCreated": "Dec 13, 2017 11:50:05 AM",
-      "dateStarted": "Dec 13, 2017 11:50:19 AM",
-      "dateFinished": "Dec 13, 2017 11:50:19 AM",
+      "dateStarted": "Dec 14, 2017 8:59:29 AM",
+      "dateFinished": "Dec 14, 2017 8:59:29 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "text": "%md\n\nAbout bank data\n\n```\nCitation Request:\n  This dataset is public available for research. The details are described in [Moro et al., 2011]. \n  Please include this citation if you plan to use this database:\n\n  [Moro et al., 2011] S. Moro, R. Laureano and P. Cortez. Using Data Mining for Bank Direct Marketing: An Application of the CRISP-DM Methodology. \n  In P. Novais et al. (Eds.), Proceedings of the European Simulation and Modelling Conference - ESM\u00272011, pp. 117-121, Guimarães, Portugal, October, 2011. EUROSIS.\n\n  Available at: [pdf] http://hdl.handle.net/1822/14838\n                [bib] http://www3.dsi.uminho.pt/pcortez/bib/2011-esm-1.txt\n```",
       "user": "admin",
-      "dateUpdated": "Dec 13, 2017 11:50:19 AM",
+      "dateUpdated": "Dec 14, 2017 8:59:29 AM",
       "config": {
         "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
@@ -420,17 +424,17 @@
       "jobName": "paragraph_1513165805927_1995954906",
       "id": "20150326-214658_12335843",
       "dateCreated": "Dec 13, 2017 11:50:05 AM",
-      "dateStarted": "Dec 13, 2017 11:50:19 AM",
-      "dateFinished": "Dec 13, 2017 11:50:19 AM",
+      "dateStarted": "Dec 14, 2017 8:59:30 AM",
+      "dateFinished": "Dec 14, 2017 8:59:30 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "user": "admin",
-      "dateUpdated": "Dec 13, 2017 11:50:19 AM",
+      "dateUpdated": "Dec 14, 2017 8:59:30 AM",
       "config": {
         "colWidth": 12.0,
-        "editorMode": "ace/mode/scala",
+        "editorMode": "ace/mode/text",
         "graph": {
           "mode": "table",
           "height": 300.0,
@@ -443,7 +447,8 @@
         "enabled": true,
         "results": {},
         "editorSetting": {
-          "language": "scala"
+          "language": "text",
+          "editOnDblClick": false
         }
       },
       "settings": {
@@ -462,25 +467,25 @@
   "name": "bank",
   "id": "2D3W9U48T",
   "angularObjects": {
-    "2D15V3P8T:shared_process": [],
-    "2D3H32HQD:shared_process": [],
-    "2D2V8RTKV:shared_process": [],
-    "2CZC8Z6TV:shared_process": [],
-    "2CZXS2GQ3:shared_process": [],
-    "2D41967JC:shared_process": [],
-    "2CZQ47WNM:shared_process": [],
-    "2D3XDJH3U:shared_process": [],
-    "2D2WZ2GEP:shared_process": [],
-    "2D35FSW4J:shared_process": [],
-    "2D1BMQPZ1:shared_process": [],
-    "2CZAW6CUT:shared_process": [],
-    "2CZU7UFHR:shared_process": [],
-    "2D2QHWXP8:shared_process": [],
-    "2D1EM9H7W:shared_process": [],
-    "2CZTTWNBN:shared_process": [],
-    "2CZBQJ8XB:shared_process": [],
-    "2D3B37Y94:shared_process": [],
-    "2D1GRJGPW:shared_process": []
+    "2CZVKAW3G:shared_process": [],
+    "2D32HRY39:shared_process": [],
+    "2D188CZTE:shared_process": [],
+    "2D1DNFKPE:shared_process": [],
+    "2D1GBTA6E:shared_process": [],
+    "2D433ZNFA:shared_process": [],
+    "2D39YVBZH:shared_process": [],
+    "2D2V5M39V:shared_process": [],
+    "2D3WEPZJ8:shared_process": [],
+    "2D29AEWDX:shared_process": [],
+    "2D32D8BC1:shared_process": [],
+    "2D2EEZFJ7:shared_process": [],
+    "2D24H3BE4:shared_process": [],
+    "2CZJXCJUU:shared_process": [],
+    "2D13AFF9P:shared_process": [],
+    "2D3CVJP7C:shared_process": [],
+    "2D2VXYSFR:shared_process": [],
+    "2CZGFV5RN:shared_process": [],
+    "2D1UFYWDN:shared_process": []
   },
   "config": {},
   "info": {}

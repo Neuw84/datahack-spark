@@ -1,6 +1,14 @@
 # datahack-spark
 
-Vagrant box for the spark Datahack module
+Vagrant box for the Spark [Datahack](https://www.datahack.es) module.
+
+Contains:
+
+---
+
+    * Zeppelin 0.7.3
+    * Spark 2.2.1
+    * Python (sci-kit, pandas, etc.)
 
 Please use this with at least **12GB** of Ram and **2** processors on the host machine
 
