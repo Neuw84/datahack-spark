@@ -1,6 +1,6 @@
 # datahack-spark
 
-Vagrant box for the Spark [Datahack](https://www.datahack.es) module.
+Vagrant box for the Spark [Datahack](https://www.datahack.es) module. This box uses Ansible as local provisioner.
 
 Contains:
 
