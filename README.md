@@ -10,7 +10,7 @@ Contains:
     * Apache Spark 2.2.1
     * Python (sci-kit, pandas, numpy, matplotlib, etc)
 
-Please use this with at least **12GB** of Ram and **2** processors on the host machine.
+Please use this with at least **8GB** of Ram and **2** processors on the host machine.
 
 The default user/password for Apache Zeppelin is ```admin/admin```.
 
