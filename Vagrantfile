@@ -6,6 +6,11 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.require_version ">= 2.0"
 
+# 
+require File.dirname(__FILE__)+"/dependency_manager"
+check_plugins ["vagrant-hostmanager"]
+
+
 ## Plugin Validation
 ##############################################
 
